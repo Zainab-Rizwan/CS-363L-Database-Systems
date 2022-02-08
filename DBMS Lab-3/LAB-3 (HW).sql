@@ -34,8 +34,8 @@ SELECT  ProductName, UnitPrice FROM Products
 WHERE UnitPrice> (SELECT AVG(UnitPrice) FROM Products)
 
 ----QUESTION 7----
-SELECT MAX(UnitPrice) AS Price FROM Products 
-WHERE UnitPrice<(SELECT MAX(UnitPrice) FROM Products)
+SELECT MAX(a.UnitPrice) AS Price FROM Products a, Products b
+WHERE b.UnitPrice>a.UnitPric
 
 ----QUESTION 8----
 SELECT CONCAT(a.FirstName,' ',a.LastName) AS EmployeeName, CONCAT(b.FirstName,' ',b.LastName) AS ManagerName, a.BirthDate AS EmployeeAge, b.BirthDate AS ManagerAge
