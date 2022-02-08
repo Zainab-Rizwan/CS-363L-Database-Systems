@@ -5,12 +5,12 @@ ON C.CustomerID = O.CustomerID
 WHERE RequiredDate<ShippedDate
 
 ----QUESTION 2----
-SELECT P.ProductName, S.CompanyName FROM PRODUCTS AS P
+SELECT P.ProductName, S.CompanyName AS SupplierName FROM PRODUCTS AS P
 INNER JOIN Suppliers AS S
 ON P.SupplierID= S.SupplierID
 
 ----QUESTION 3----
-SELECT TOP 10 P.ProductName,P.SupplierID FROM [Order Details] AS OD
+SELECT TOP 10 P.ProductName FROM [Order Details] AS OD
 INNER JOIN Orders AS O
 ON OD.OrderID=O.OrderID 
 INNER JOIN Products AS P
@@ -32,10 +32,11 @@ HAVING COUNT (a.ReportsTo)<2
 ----QUESTION 6----
 SELECT  ProductName, UnitPrice FROM Products 
 WHERE UnitPrice> (SELECT AVG(UnitPrice) FROM Products)
+ORDER BY UnitPrice
 
 ----QUESTION 7----
 SELECT MAX(a.UnitPrice) AS Price FROM Products a, Products b
-WHERE b.UnitPrice>a.UnitPric
+WHERE b.UnitPrice>a.UnitPrice
 
 ----QUESTION 8----
 SELECT CONCAT(a.FirstName,' ',a.LastName) AS EmployeeName, CONCAT(b.FirstName,' ',b.LastName) AS ManagerName, a.BirthDate AS EmployeeAge, b.BirthDate AS ManagerAge
@@ -51,7 +52,7 @@ ON P.ProductID=OD.ProductID
 WHERE O.OrderDate= '1997-08-08 00:00:00.000'
 
 ----QUESTION 10----
-SELECT ContactName, P.ProductName FROM [Order Details] AS OD
+SELECT DISTINCT ContactName FROM [Order Details] AS OD
 INNER JOIN Orders AS O
 ON OD.OrderID=O.OrderID 
 INNER JOIN Products AS P
@@ -59,6 +60,7 @@ ON P.ProductID=OD.ProductID
 INNER JOIN Suppliers AS S
 ON P.SupplierID= S.SupplierID
 WHERE YEAR(OrderDate)= 1997
+GROUP BY ContactName
 
 ----QUESTION 11----
 SELECT COUNT( DISTINCT (E.EmployeeID)) AS Employees FROM EmployeeTerritories AS E
@@ -69,12 +71,16 @@ ON T.RegionID=R.RegionID
 WHERE R.RegionID=1
 
 ----QUESTION 12----
-SELECT P.ProductName,P.SupplierID FROM [Order Details] AS OD
+SELECT DISTINCT P.ProductName,P.SupplierID FROM [Order Details] AS OD
 INNER JOIN Orders AS O
 ON OD.OrderID=O.OrderID 
 INNER JOIN Products AS P
 ON P.ProductID=OD.ProductID
 WHERE YEAR(OrderDate) != 1966
+ORDER BY ProductName
+
+
+
 
 
 
