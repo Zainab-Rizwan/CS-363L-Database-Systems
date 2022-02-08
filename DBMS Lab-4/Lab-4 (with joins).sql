@@ -22,7 +22,7 @@ GROUP BY B.Bike_ID
 ORDER BY [Highest Repairing Cost] DESC
 
 ----QUESTION 4 How many bikes are owned by each station? Schema should be (StationName, TotalBikes)----
-SELECT Station_ID, COUNT(Bike_ID) FROM Bikes
+SELECT Station_ID, COUNT(Bike_ID) AS TotalBikes FROM Bikes
 GROUP BY Station_ID
 
 ----QUESTION 5 Given the name customers who never rented a bike. Schema is as follow. (CustomerFullName)----
