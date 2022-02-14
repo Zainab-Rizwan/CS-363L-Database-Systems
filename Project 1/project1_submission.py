@@ -110,5 +110,5 @@ def query_eleven():
         WHERE season1.season=season2.season AND season1.wins= season2.wins AND market IS NOT NULL
         GROUP BY market 
         ORDER BY COUNT(*) DESC, 
-        market LIMIT 5;
+        LIMIT 5;
     """
