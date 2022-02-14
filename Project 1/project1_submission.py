@@ -101,10 +101,14 @@ def query_ten():
 def query_eleven():
     """Query for highest-winner teams"""
     return """
-        SELECT market FROM (SELECT market, COUNT(*) as top_performer_count 
-        FROM `bigquery-public-data.ncaa_basketball.mbb_historical_teams_games` 
-        WHERE win=True AND SEASON BETWEEN 1900 AND 2000 AND market IS NOT NULL
-        GROUP BY market)
-        ORDER BY top_performer_count DESC
-        LIMIT 5
+        SELECT  market, COUNT(*) FROM as top_performer_count 
+        (SELECT season, MAX(wins) wins FROM `bigquery-public-data.ncaa_basketball.mbb_historical_teams_seasons`
+        season1 WHERE season>=1900 AND season<=2000 
+        GROUP BY season 
+        ORDER BY season) season1,
+       `bigquery-public-data.ncaa_basketball.mbb_historical_teams_seasons` season2
+        WHERE season1.season=season2.season AND season1.wins= season2.wins AND market IS NOT NULL
+        GROUP BY market 
+        ORDER BY COUNT(*) DESC, 
+        market LIMIT 5;
     """
